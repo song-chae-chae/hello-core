@@ -61,14 +61,11 @@ public class SingletonWithPrototypeTest1 {
     }
 
     static class ClientBean {
-        private final PrototypeBean prototypeBean; // 생성 시점에 주입
-
         @Autowired
-        public ClientBean(PrototypeBean prototypeBean) {
-            this.prototypeBean = prototypeBean;
-        }
+        private ObjectProvider<PrototypeBean> prototypeBeanProvider;
 
         public int logic() {
+            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
             prototypeBean.addCount();
             return prototypeBean.getCount();
         }
